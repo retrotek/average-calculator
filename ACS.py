@@ -9,23 +9,7 @@
 
 
 ########### BETA CODE #################
-class student(object):
-    '''An instance of a student.'''
 
-    def __init__(self,name,stage,week):
-        '''
-        >>> kurtis = student('Kurtis Knigge','Maintainance',
-
-        '''
-        self.name = name
-        self.stage = stage
-        self.week = week
-        
-
-    def return_info(self):
-        return self.name, self.stage, self.week
-    
-    
 class week(dict):
     ''' A dictionary that lists the days of the week and their corresponding
     average.''' 
@@ -40,7 +24,77 @@ class week(dict):
         self.fri = fri
         self.sat = sat
         self.sun = sun
+
+    
         
+class student(object):
+    '''An instance of a student.'''
+
+    def __init__(self,name,stage):
+        '''
+        >>> kurtis = student('Kurtis Knigge','Maintainance',
+
+        '''
+        self.name = name
+        self.stage = stage
+        
+
+        
+        self.program = {}
+        self.athletics = {}
+        self.academic = {}
+        self.family_rep = {}
+        self.psychotherapy = {}
+        self.educational_grp = {}
+
+        
+    def __str__(self):
+        return self.name + ' ' + self.stage
+
+    def return_info(self):
+        return self.name, self.stage
+    
+############# PROGRAM AVERAGE CODE #################
+    def update_program(self,week):
+        '''Updates a students program average.
+        '''
+        self.program = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
+        
+    def program_average(self):
+        '''Returns a particular students program average.
+        '''
+        return singular_average(self.program)
+
+    def print_program(self):
+        '''Prints a student's daily averages for the week.
+        '''
+        print('Monday: ' + str(self.program['mon']), 'Tuesday: ' + str(self.program['tue']),
+              'Wednesday: ' + str(self.program['wed']),'Thursday: ' + str(self.program['thur'])
+              , 'Friday: ' + str(self.program['fri']), 'Saturday: ' + str(self.program['sat']),
+              'Sunday: ' + str(self.program['sun']))
+        
+                                                                                                                                                                                    
+########### ATHLETICS AVERAGE CODE  ##################
+    def update_athletics(self,week):
+        '''Updates a students program average.
+        '''
+        self.athletics = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
+        
+    def athletics_average(self):
+        '''Returns a particular students program average.
+        '''
+        return singular_average(self.athletics)
+
+    def print_athletics(self):
+        '''Prints a student's daily averages for the week.
+        '''
+        print('Monday: ' + str(self.athletics['mon']), 'Tuesday: ' + str(self.athletics['tue']),
+              'Wednesday: ' + str(self.athletics['wed']),'Thursday: ' + str(self.athletics['thur'])
+              , 'Friday: ' + str(self.athletics['fri']), 'Saturday: ' + str(self.athletics['sat']),
+              'Sunday: ' + str(self.athletics['sun']))
+        
+############
+
     
 def singular_average(week):
     total=0
@@ -73,20 +127,29 @@ def singular_average(week):
 ########## END OF BETA CODE #############
 
 class program(week):
+    '''A week of daily averages for the PROGRAM area.
+    '''
 
+class athletics(week):
+    '''A week of daily averages for the ATHLETICS area.
+    '''
 
-
-class academics(week):
-
+class academic(week):
+    '''A week of daily averages for the ACADEMIC area.
+    '''
 
 
 class family_rep(week):
-
+    '''A week of daily averages for the FAMILY REP area.
+    '''
 
 
 class psychotherapy(week):
-
+    '''A week of daily averages for the PSYCHOTHERAPY area.
+    '''
 
 
 class educational_grp(week):
-    
+    '''A week of daily averages for the EDUCATIONAL GROUP area
+    '''
+
