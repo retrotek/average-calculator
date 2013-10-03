@@ -248,7 +248,7 @@ class educational_grp(week):
 
 def names():
     students = []
-    x = open('names.txt')
+    x = open('names.txt','r')
     counter = 1
     for line in x:
         '''if counter % 2 ==0:
@@ -271,10 +271,37 @@ def add_student():
         x.write('\n' + name)
         x.close()
         print("You added " + name + " to the student list")
+    global_var_set()
+    
+def global_var_set():
+    global student2average
+    student2average = {}
+    for num in range(0,len(names())):
+        student2average[names()[num]] = {'Program':None,'Athletics':None,'Academics':None,
+    'Psychotherapy':None,'Family Rep':None,'Educational Group':None}
     
 def delete_student():
-    num = input('How many students would you like to delete?  ')
-    x = names()
-    for it in range(0,int(num)):
+    '''num = input('How many students would you like to delete?  ')
+    students = names()
+    file = open('names.txt','w')
+    for x in range(0,int(num)):
         name = input("Please type the student's name:  ")
-        
+        students.remove(name)
+        file.write(students[x] + '\n')
+        print("You removed " + name + " from the student list")
+    list = str(students).lstrip('[')
+    list = list.rstrip(']')'''
+    students = names()
+    file = open('names.txt','w')
+    name = input("Please type the student's name:  ")
+    students.remove(name)
+    for x in range(0,len(students)):
+        file.write(students[x] + '\n')
+    print("You removed " + name + " from the student list")
+    file.close()
+    global_var_set()
+
+    
+global_var_set()
+
+
