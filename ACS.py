@@ -103,7 +103,7 @@ class student(object):
     def update_academic(self,week):
         '''Updates a students program average.
         '''
-        self.aacademic = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
+        self.academic = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
         
     def academic_average(self):
         '''Returns a particular students program average.
@@ -115,30 +115,76 @@ class student(object):
         '''
         print('Monday: ' + str(self.academic['mon']), 'Tuesday: ' + str(self.academic['tue']),
               'Wednesday: ' + str(self.academic['wed']),'Thursday: ' + str(self.academic['thur'])
-              , 'Friday: ' + str(self.aacademic['fri']), 'Saturday: ' + str(self.academic['sat']),
+              , 'Friday: ' + str(self.academic['fri']), 'Saturday: ' + str(self.academic['sat']),
               'Sunday: ' + str(self.academic['sun']))
-
-
-
-    def update(self,,week):
+############ FAMILY REP CODE ###########################
+########################################################
+########################################################
+    def update_family_Rep(self,week):
         '''Updates a students program average.
         '''
-        self.athletics = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
+        self.family_rep = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
         
-    def average(self,area):
+    def family_Rep_average(self):
         '''Returns a particular students program average.
         '''
-        return singular_average(self.area)
+        return singular_average(self.family_rep)
 
-    def print_avg(self):
+    def print_family_Rep(self):
         '''Prints a student's daily averages for the week.
         '''
-        print('Monday: ' + str(self.athletics['mon']), 'Tuesday: ' + str(self.athletics['tue']),
-              'Wednesday: ' + str(self.athletics['wed']),'Thursday: ' + str(self.athletics['thur'])
-              , 'Friday: ' + str(self.athletics['fri']), 'Saturday: ' + str(self.athletics['sat']),
-              'Sunday: ' + str(self.athletics['sun']))
+        print('Monday: ' + str(self.family_rep['mon']), 'Tuesday: ' + str(self.family_rep['tue']),
+              'Wednesday: ' + str(self.family_rep['wed']),'Thursday: ' + str(self.family_rep['thur'])
+              , 'Friday: ' + str(self.family_rep['fri']), 'Saturday: ' + str(self.family_rep['sat']),
+              'Sunday: ' + str(self.family_rep['sun']))
 
-    
+########### PSYCHOTHERAPY CODE ##########################
+#########################################################
+#########################################################
+    def update_psychotherapy(self,week):
+        '''Updates a students program average.
+        '''
+        self.psychotherapy = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
+        
+    def psychotherapy_average(self):
+        '''Returns a particular students program average.
+        '''
+        return singular_average(self.psychotherapy)
+
+    def print_psychotherapy(self):
+        '''Prints a student's daily averages for the week.
+        '''
+        print('Monday: ' + str(self.psychotherapy['mon']), 'Tuesday: ' + str(self.psychotherapy['tue']),
+              'Wednesday: ' + str(self.psychotherapy['wed']),'Thursday: ' + str(self.psychotherapy['thur'])
+              , 'Friday: ' + str(self.psychotherapy['fri']), 'Saturday: ' + str(self.psychotherapy['sat']),
+              'Sunday: ' + str(self.psychotherapy['sun']))
+   
+############# EDUCATIONAL GROUPS ########################
+#########################################################
+#########################################################
+    def update_educational_grp(self,week):
+        '''Updates a students program average.
+        '''
+        self.educational_grp = {'mon':week.mon,'tue':week.tue,'wed':week.wed,'thur':week.thur,'fri':week.fri, 'sat':week.sat,'sun':week.sun}
+        
+    def educational_grp_average(self):
+        '''Returns a particular students program average.
+        '''
+        return singular_average(self.educational_grp)
+
+    def print_educational_grp(self):
+        '''Prints a student's daily averages for the week.
+        '''
+        print('Monday: ' + str(self.educational_grp['mon']), 'Tuesday: ' + str(self.educational_grp['tue']),
+              'Wednesday: ' + str(self.educational_grp['wed']),'Thursday: ' + str(self.educational_grp['thur'])
+              , 'Friday: ' + str(self.educational_grp['fri']), 'Saturday: ' + str(self.educational_grp['sat']),
+              'Sunday: ' + str(self.educational_grp['sun']))
+
+
+
+
+
+        
 def singular_average(week):
     total=0
     dayCount=0
@@ -196,3 +242,39 @@ class educational_grp(week):
     '''A week of daily averages for the EDUCATIONAL GROUP area
     '''
 
+########## UI FUNCTIONS #####################
+#############################################
+
+
+def names():
+    students = []
+    x = open('names.txt')
+    counter = 1
+    for line in x:
+        '''if counter % 2 ==0:
+            stage = line
+        else:
+            name = line
+
+        counter+=1
+    students.append(name.rstrip('\)'''
+        name = line
+        students.append(name.rstrip('\n'))
+    x.close()
+    return students
+
+def add_student():
+    num = input('How many students would you like to add?  ')
+    x = open('names.txt','a')
+    for it in range(0,int(num)):
+        name = input("Please type the student's name:  ")
+        x.write('\n' + name)
+        x.close()
+        print("You added " + name + " to the student list")
+    
+def delete_student():
+    num = input('How many students would you like to delete?  ')
+    x = names()
+    for it in range(0,int(num)):
+        name = input("Please type the student's name:  ")
+        
