@@ -246,7 +246,7 @@ class educational_grp(week):
 #############################################
 
 
-def names():
+def student_list():
     students = []
     x = open('names.txt','r')
     counter = 1
@@ -276,8 +276,8 @@ def add_student():
 def global_var_set():
     global student2average
     student2average = {}
-    for num in range(0,len(names())):
-        student2average[names()[num]] = {'Program':None,'Athletics':None,'Academics':None,
+    for num in range(0,len(student_list())):
+        student2average[student_list()[num]] = {'Program':None,'Athletics':None,'Academics':None,
     'Psychotherapy':None,'Family Rep':None,'Educational Group':None}
     
 def delete_student():
@@ -291,7 +291,7 @@ def delete_student():
         print("You removed " + name + " from the student list")
     list = str(students).lstrip('[')
     list = list.rstrip(']')'''
-    students = names()
+    students = student_list()
     file = open('names.txt','w')
     name = input("Please type the student's name:  ")
     students.remove(name)
@@ -303,5 +303,49 @@ def delete_student():
 
     
 global_var_set()
+
+def student_info():
+    ''' (str) -> dict
+    '''
+    student = input("Please type the student's name:  ")
+    return student2average[student]
+
+
+###########################################################
+###########################################################
+import time
+def initialize():
+    print("Please type one of the following commands: ")
+    print("ROSTER, ADD, DELETE, UPDATE, INSPECT, EXIT")
+    x = input()
+    y = x.lower()
+    if y == 'roster':
+        print(student_list())
+       
+    elif y == 'add':
+        add_student()
+        
+    elif y == 'delete':
+        delete_student()
+        
+    elif y == 'update':
+        ########## FIX!!!! ######
+        None
+        
+    elif y == 'inspect':
+        print(student_info())
+        
+    elif y == 'exit':
+        print("..........")
+    else:
+        print("Error: Invalid Command")
+    
+    print('\n')
+    initialize()
+    
+
+print("Welcome to the Average Calculator Suite 0.1!")
+print("Coded by Kurtis Knigge\n")
+initialize()
 
 
