@@ -25,6 +25,8 @@ class week(dict):
         self.sat = sat
         self.sun = sun
 
+
+            
     
         
 class student(object):
@@ -265,20 +267,25 @@ def student_list():
 
 def add_student():
     num = input('How many students would you like to add?  ')
-    x = open('names.txt','a')
+    
     for it in range(0,int(num)):
         name = input("Please type the student's name:  ")
+        x = open('names.txt','a')
         x.write('\n' + name)
         x.close()
         print("You added " + name + " to the student list")
-    global_var_set()
+    
     
 def global_var_set():
     global student2average
     student2average = {}
     for num in range(0,len(student_list())):
-        student2average[student_list()[num]] = {'Program':None,'Athletics':None,'Academics':None,
-    'Psychotherapy':None,'Family Rep':None,'Educational Group':None}
+        student2average[student_list()[num]] = {'Program':{'Mon':None,'Tue':None,'Wed':None,'Thur':None,'Fri':None,'Sat':None,'Sun':None},
+        'Athletics':{'Mon':None,'Tue':None,'Wed':None,'Thur':None,'Fri':None,'Sat':None,'Sun':None},
+        'Academics':{'Mon':None,'Tue':None,'Wed':None,'Thur':None,'Fri':None,'Sat':None,'Sun':None},
+        'Psychotherapy':{'Mon':None,'Tue':None,'Wed':None,'Thur':None,'Fri':None,'Sat':None,'Sun':None},
+        'Family Rep':{'Mon':None,'Tue':None,'Wed':None,'Thur':None,'Fri':None,'Sat':None,'Sun':None},
+        'Educational Group':{'Mon':None,'Tue':None,'Wed':None,'Thur':None,'Fri':None,'Sat':None,'Sun':None}}
     
 def delete_student():
     '''num = input('How many students would you like to delete?  ')
@@ -292,25 +299,46 @@ def delete_student():
     list = str(students).lstrip('[')
     list = list.rstrip(']')'''
     students = student_list()
-    file = open('names.txt','w')
+    
     name = input("Please type the student's name:  ")
     students.remove(name)
+    file = open('names.txt','w')
     for x in range(0,len(students)):
         file.write(students[x] + '\n')
     print("You removed " + name + " from the student list")
     file.close()
-    global_var_set()
+    
 
     
-global_var_set()
+
 
 def student_info():
     ''' (str) -> dict
     '''
     student = input("Please type the student's name:  ")
-    return student2average[student]
+    area = input("Please type the desired area (Overall, Academics, Athletics, Educational Group, Family Rep, Program, Psychotherapy) :  " )
+    x = student2average[student]
+    if area.lower() == 'overall':
+        '''i = 0
+        for num in range(0,len(student2average[student])):
+            print(singular_average(student2average[student][i]))
+            i+=1'''
+        print("Academics: \n" + x['Academics'])
+        print("Athletics: \n" + x['Athletics'])
+        print("Educational Group: \n" + x['Educational Group']
+        print("Program: \n" + x['Program']
+    else:
+        return x[area]
+        
+            
+        
+    
 
-
+def update():
+    student = input("Which student would you like to update?  ")
+    info = students2average[student]
+    
+    
 ###########################################################
 ###########################################################
 import time
@@ -324,10 +352,10 @@ def initialize():
        
     elif y == 'add':
         add_student()
-        
+        global_var_set()
     elif y == 'delete':
         delete_student()
-        
+        global_var_set()
     elif y == 'update':
         ########## FIX!!!! ######
         None
@@ -337,6 +365,7 @@ def initialize():
         
     elif y == 'exit':
         print("..........")
+        exit()
     else:
         print("Error: Invalid Command")
     
@@ -346,6 +375,7 @@ def initialize():
 
 print("Welcome to the Average Calculator Suite 0.1!")
 print("Coded by Kurtis Knigge\n")
+global_var_set()
 initialize()
 
 
