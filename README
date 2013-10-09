@@ -13,3 +13,9 @@ Depending on their averages, students may: participate in extra activities and b
 The purpose of the Average Calculator?
 
 The Average Calculator is an application that can meet all of a user's needs when it comes to averages; this includes but is not limited to: adding and deleting students, updating daily averages, and compiling weekly averages in an easy to use environment.
+
+
+Loading and Saving Data:
+
+Student Roster -- 
+The Student Roster is saved under the file "names.txt" which is accessed and edited by the Average Calculator. "names.txt" is accessed upon initialization to build a local database of students and averages that can be manipulated by the application. 
