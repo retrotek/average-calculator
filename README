@@ -28,3 +28,31 @@ The actual database of students and their corresponding averages is stored in th
 
 
 
+Commands:
+
+Roster --
+Lists all of the students in the currently saved roster.
+
+Quick List --
+Lists all of the students and their overall averages.
+
+Add --
+Creates new students.
+
+Delete --
+Deletes students.
+
+Update --
+Updates a student's daily averages.
+
+Inspect --
+Lists daily averages for all areas.
+
+Save --
+Saves the changes you have made. (New students, deleted students, daily averages)
+
+Load --
+Loads previously saved data.
+
+Exit -- 
+Closes the program.

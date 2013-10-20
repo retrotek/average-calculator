@@ -8,7 +8,7 @@
 
 
 
-########### TRIAL CODE #################
+
 
 
 
@@ -47,7 +47,6 @@ def singular_average(dict):
 
 
 
-########## END OF TRIAL CODE #############
 
 
 
@@ -120,110 +119,107 @@ def delete_student():
 
 
 def student_info():
-    ''' (str) -> dict
-    '''
+    
     student = input("Please type the student's name:  ")
     if student not in student_list():
         print("\n Error: This student does not exist")
     else:
         area = input("Please type the desired area (Overall, Academics, Athletics, Educational Group, Family Rep, Program, Psychotherapy) :  " )
         x = student2average[student]
-        if area not in x:
-            print("\n Error: Invalid Input")
-        else:
-            m = 'Mon'
-            t = 'Tue'
-            w = 'Wed'
-            th = 'Thur'
-            f = 'Fri'
-            s = 'Sat'
-            sn = 'Sun'
-            aca = x['Academics']
-            ath = x['Athletics']
-            edu = x['Educational Group']
-            pro = x['Program']
-            psy = x['Psychotherapy']
-            fam = x['Family Rep']
+        
+        m = 'Mon'
+        t = 'Tue'
+        w = 'Wed'
+        th = 'Thur'
+        f = 'Fri'
+        s = 'Sat'
+        sn = 'Sun'
+        aca = x['Academics']
+        ath = x['Athletics']
+        edu = x['Educational Group']
+        pro = x['Program']
+        psy = x['Psychotherapy']
+        fam = x['Family Rep']
+        
+        if area.lower() == 'overall':
             
-            if area.lower() == 'overall':
-                
-                print("\n Academics: \n" + m + ':  ' + str(aca[m]) + '\n' +
-                      t + ': ' + str(aca[t]) + '\n' + w + ': ' + str(aca[w]) + '\n'
-                      + th + ': ' + str(aca[th]) + '\n' + f + ': ' + str(aca[f]) + '\n'
-                      + s + ': ' + str(aca[s]) + '\n' + sn + ': ' + str(aca[sn]) + '\n')
+            print("\n Academics: \n" + m + ':  ' + str(aca[m]) + '\n' +
+                  t + ': ' + str(aca[t]) + '\n' + w + ': ' + str(aca[w]) + '\n'
+                  + th + ': ' + str(aca[th]) + '\n' + f + ': ' + str(aca[f]) + '\n'
+                  + s + ': ' + str(aca[s]) + '\n' + sn + ': ' + str(aca[sn]) + '\n')
+            str(singular_average(aca))
+            
+            print("Athletics: \n" + m + ':  ' + str(ath[m]) + '\n' +
+                  t + ': ' + str(ath[t]) + '\n' + w + ': ' + str(ath[w]) + '\n'
+                  + th + ': ' + str(ath[th]) + '\n' + f + ': ' + str(ath[f]) + '\n'
+                  + s + ': ' + str(ath[s]) + '\n' + sn + ': ' + str(ath[sn])+ '\n')
+            str(singular_average(ath))
+           
+            print("Educational Group: \n" + m + ':  ' + str(edu[m]) + '\n' +
+                  t + ': ' + str(edu[t]) + '\n' + w + ': ' + str(edu[w]) + '\n'
+                  + th + ': ' + str(edu[th]) + '\n' + f + ': ' + str(edu[f]) + '\n'
+                  + s + ': ' + str(edu[s]) + '\n' + sn + ': ' + str(edu[sn]) + '\n')
+            str(singular_average(edu))
+            
+            print("Family Rep:  \n" + m + ':  ' + str(fam[m]) + '\n' +
+                  t + ': ' + str(fam[t]) + '\n' + w + ': ' + str(fam[w]) + '\n'
+                  + th + ': ' + str(fam[th]) + '\n' + f + ': ' + str(fam[f]) + '\n'
+                  + s + ': ' + str(fam[s]) + '\n' + sn + ': ' + str(fam[sn]) + '\n')
+            str(singular_average(fam))
+            
+            print("Program: \n" + m + ':  ' + str(pro[m]) + '\n' +
+                  t + ': ' + str(pro[t]) + '\n' + w + ': ' + str(pro[w]) + '\n'
+                  + th + ': ' + str(pro[th]) + '\n' + f + ': ' + str(pro[f]) + '\n'
+                  + s + ': ' + str(pro[s]) + '\n' + sn + ': ' + str(pro[sn]) + '\n')
+            str(singular_average(pro))
+           
+            print("Psychotherapy:  \n" + m + ':  ' + str(psy[m]) + '\n' +
+                  t + ': ' + str(psy[t]) + '\n' + w + ': ' + str(psy[w]) + '\n'
+                  + th + ': ' + str(psy[th]) + '\n' + f + ': ' + str(psy[f]) + '\n'
+                  + s + ': ' + str(psy[s]) + '\n' + sn + ': ' + str(psy[sn]) + '\n')
+            str(singular_average(psy))
+            
+            
+                    
+        else:
+            if area.lower() == 'academics':
+                print("Academics: \n" + m + ':  ' + str(aca[m]) + '\n' +
+                  t + ': ' + str(aca[t]) + '\n' + w + ': ' + str(aca[w]) + '\n'
+                  + th + ': ' + str(aca[th]) + '\n' + f + ': ' + str(aca[f]) + '\n'
+                  + s + ': ' + str(aca[s]) + '\n' + sn + ': ' + str(aca[sn]) + '\n')
                 str(singular_average(aca))
-                
+            elif area.lower() == 'athletics':
                 print("Athletics: \n" + m + ':  ' + str(ath[m]) + '\n' +
-                      t + ': ' + str(ath[t]) + '\n' + w + ': ' + str(ath[w]) + '\n'
-                      + th + ': ' + str(ath[th]) + '\n' + f + ': ' + str(ath[f]) + '\n'
-                      + s + ': ' + str(ath[s]) + '\n' + sn + ': ' + str(ath[sn])+ '\n')
+                  t + ': ' + str(ath[t]) + '\n' + w + ': ' + str(ath[w]) + '\n'
+                  + th + ': ' + str(ath[th]) + '\n' + f + ': ' + str(ath[f]) + '\n'
+                  + s + ': ' + str(ath[s]) + '\n' + sn + ': ' + str(ath[sn]) + '\n')
                 str(singular_average(ath))
-               
+            elif area.lower() == 'educational group':
                 print("Educational Group: \n" + m + ':  ' + str(edu[m]) + '\n' +
-                      t + ': ' + str(edu[t]) + '\n' + w + ': ' + str(edu[w]) + '\n'
-                      + th + ': ' + str(edu[th]) + '\n' + f + ': ' + str(edu[f]) + '\n'
-                      + s + ': ' + str(edu[s]) + '\n' + sn + ': ' + str(edu[sn]) + '\n')
+                  t + ': ' + str(edu[t]) + '\n' + w + ': ' + str(edu[w]) + '\n'
+                  + th + ': ' + str(edu[th]) + '\n' + f + ': ' + str(edu[f]) + '\n'
+                  + s + ': ' + str(edu[s]) + '\n' + sn + ': ' + str(edu[sn]) + '\n')
                 str(singular_average(edu))
-                
+            elif area.lower() == 'family rep':
                 print("Family Rep:  \n" + m + ':  ' + str(fam[m]) + '\n' +
-                      t + ': ' + str(fam[t]) + '\n' + w + ': ' + str(fam[w]) + '\n'
-                      + th + ': ' + str(fam[th]) + '\n' + f + ': ' + str(fam[f]) + '\n'
-                      + s + ': ' + str(fam[s]) + '\n' + sn + ': ' + str(fam[sn]) + '\n')
+                  t + ': ' + str(fam[t]) + '\n' + w + ': ' + str(fam[w]) + '\n'
+                  + th + ': ' + str(fam[th]) + '\n' + f + ': ' + str(fam[f]) + '\n'
+                  + s + ': ' + str(fam[s]) + '\n' + sn + ': ' + str(fam[sn]) + '\n')
                 str(singular_average(fam))
-                
+            elif area.lower() == 'program':
                 print("Program: \n" + m + ':  ' + str(pro[m]) + '\n' +
-                      t + ': ' + str(pro[t]) + '\n' + w + ': ' + str(pro[w]) + '\n'
-                      + th + ': ' + str(pro[th]) + '\n' + f + ': ' + str(pro[f]) + '\n'
-                      + s + ': ' + str(pro[s]) + '\n' + sn + ': ' + str(pro[sn]) + '\n')
+                  t + ': ' + str(pro[t]) + '\n' + w + ': ' + str(pro[w]) + '\n'
+                  + th + ': ' + str(pro[th]) + '\n' + f + ': ' + str(pro[f]) + '\n'
+                  + s + ': ' + str(pro[s]) + '\n' + sn + ': ' + str(pro[sn]) + '\n')
                 str(singular_average(pro))
-               
+            elif area.lower() == 'psychotherapy':
                 print("Psychotherapy:  \n" + m + ':  ' + str(psy[m]) + '\n' +
-                      t + ': ' + str(psy[t]) + '\n' + w + ': ' + str(psy[w]) + '\n'
-                      + th + ': ' + str(psy[th]) + '\n' + f + ': ' + str(psy[f]) + '\n'
-                      + s + ': ' + str(psy[s]) + '\n' + sn + ': ' + str(psy[sn]) + '\n')
+                  t + ': ' + str(psy[t]) + '\n' + w + ': ' + str(psy[w]) + '\n'
+                  + th + ': ' + str(psy[th]) + '\n' + f + ': ' + str(psy[f]) + '\n'
+                  + s + ': ' + str(psy[s]) + '\n' + sn + ': ' + str(psy[sn]) + '\n')
                 str(singular_average(psy))
-                
-                
-                        
             else:
-                if area.lower() == 'academics':
-                    print("Academics: \n" + m + ':  ' + str(aca[m]) + '\n' +
-                      t + ': ' + str(aca[t]) + '\n' + w + ': ' + str(aca[w]) + '\n'
-                      + th + ': ' + str(aca[th]) + '\n' + f + ': ' + str(aca[f]) + '\n'
-                      + s + ': ' + str(aca[s]) + '\n' + sn + ': ' + str(aca[sn]) + '\n')
-                    str(singular_average(aca))
-                elif area.lower() == 'athletics':
-                    print("Athletics: \n" + m + ':  ' + str(ath[m]) + '\n' +
-                      t + ': ' + str(ath[t]) + '\n' + w + ': ' + str(ath[w]) + '\n'
-                      + th + ': ' + str(ath[th]) + '\n' + f + ': ' + str(ath[f]) + '\n'
-                      + s + ': ' + str(ath[s]) + '\n' + sn + ': ' + str(ath[sn]) + '\n')
-                    str(singular_average(ath))
-                elif area.lower() == 'Educational Group':
-                    print("Educational Group: \n" + m + ':  ' + str(edu[m]) + '\n' +
-                      t + ': ' + str(edu[t]) + '\n' + w + ': ' + str(edu[w]) + '\n'
-                      + th + ': ' + str(edu[th]) + '\n' + f + ': ' + str(edu[f]) + '\n'
-                      + s + ': ' + str(edu[s]) + '\n' + sn + ': ' + str(edu[sn]) + '\n')
-                    str(singular_average(edu))
-                elif area.lower() == 'family rep':
-                    print("Family Rep:  \n" + m + ':  ' + str(fam[m]) + '\n' +
-                      t + ': ' + str(fam[t]) + '\n' + w + ': ' + str(fam[w]) + '\n'
-                      + th + ': ' + str(fam[th]) + '\n' + f + ': ' + str(fam[f]) + '\n'
-                      + s + ': ' + str(fam[s]) + '\n' + sn + ': ' + str(fam[sn]) + '\n')
-                    str(singular_average(fam))
-                elif area.lower() == 'program':
-                    print("Program: \n" + m + ':  ' + str(pro[m]) + '\n' +
-                      t + ': ' + str(pro[t]) + '\n' + w + ': ' + str(pro[w]) + '\n'
-                      + th + ': ' + str(pro[th]) + '\n' + f + ': ' + str(pro[f]) + '\n'
-                      + s + ': ' + str(pro[s]) + '\n' + sn + ': ' + str(pro[sn]) + '\n')
-                    str(singular_average(pro))
-                elif area.lower() == 'psychotherapy':
-                    print("Psychotherapy:  \n" + m + ':  ' + str(psy[m]) + '\n' +
-                      t + ': ' + str(psy[t]) + '\n' + w + ': ' + str(psy[w]) + '\n'
-                      + th + ': ' + str(psy[th]) + '\n' + f + ': ' + str(psy[f]) + '\n'
-                      + s + ': ' + str(psy[s]) + '\n' + sn + ': ' + str(psy[sn]) + '\n')
-                    str(singular_average(psy))
-                else:
-                    print('Error: Invalid Input')
+                print('Error: Invalid Input')
         
     
 
