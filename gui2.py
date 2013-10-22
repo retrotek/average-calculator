@@ -13,7 +13,7 @@ def roster():
     pass
 
 ###########################
-#   Student List Fill     #
+#   Student List          #
 ###########################
 
 def studentListINIT():
@@ -24,19 +24,47 @@ def studentListINIT():
     for num in range(0,len(SL)):
         studentList.insert(END, SL[num])
 
-############################
-#      AREA FILL           #
-############################
-def areaFILL():
-    student = SL[int(studentList.curselection()[0])]
-    global AL
-    AL = []
-    for area in ACS_clone.student2average[student]:
-        areas.insert(END,area)
-        
+global selectedStudent
+selectedStudent = None
 
-#######################
-#######################
+def selectStudent(event):
+    selectedStudent = SL[int(studentList.curselection()[0])]
+
+
+############################
+#          AREA            #
+############################
+def areaDestroy(event):
+    areaList.children.clear()
+
+def areaListINIT():
+    
+    global AL
+    AL = ['Academics','Athletics', 'Educational Group', 'Family Rep', 'Program', 'Psychotherapy'] 
+    for area in AL:
+        areaList.insert(END,area)
+
+
+
+
+        
+def checkStudent(event):
+    if selectedStudent == None:
+        Message(root, text='Please select a Student')
+    
+#############################
+#      Daily List           #
+#############################
+def dailyUPDATE(event):
+    pass
+
+
+
+
+#############################
+
+
+
 
 root = Tk()
 root.title("Average Calculator")
@@ -84,7 +112,7 @@ studentLabel = Label(frame1, text="Student List")
 studentLabel.pack(side=TOP)
 studentList = Listbox(frame1)
 studentList.pack(side=LEFT,padx=5)
-studentList.bind('<ButtonRelease-1>', areaFILL)
+studentList.bind('<ButtonRelease-1>', selectStudent)
 
 ###########################
 #       Frame2            #
@@ -96,6 +124,7 @@ areaLabel = Label(frame2, text="Area List")
 areaLabel.pack(side=TOP)
 areaList= Listbox(frame2)
 areaList.pack(padx=5)
+areaList.bind('<ButtonRelease-1>', checkStudent)
 
 ###########################
 #       Frame3            #
@@ -106,8 +135,7 @@ dailyLabel = Label(frame3, text='Daily Averages')
 dailyLabel.pack()
 dailyList = Listbox(frame3)
 dailyList.pack(padx=5)
-
-
+dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
 
 
 
@@ -118,7 +146,7 @@ dailyList.pack(padx=5)
 ############################
 
 studentListINIT()
-
+areaListINIT()
 root.geometry('405x200')
 root.mainloop()
 
