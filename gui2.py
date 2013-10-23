@@ -4,8 +4,8 @@ import ACS_clone
 
 
 
-#######################
-#######################
+##########################
+##########################
 def donothing():
     pass
 
@@ -28,8 +28,9 @@ global selectedStudent
 selectedStudent = None
 
 def selectStudent(event):
+    global selectedStudent
     selectedStudent = SL[int(studentList.curselection()[0])]
-
+    
 
 ############################
 #          AREA            #
@@ -47,11 +48,35 @@ def areaListINIT():
 
 
 
-        
+global selectedArea
+selectedArea = None
+
 def checkStudent(event):
+    def destroy(event):
+        msgRoot.destroy()
+        
     if selectedStudent == None:
-        Message(root, text='Please select a Student')
-    
+        msgRoot = Tk()
+        msgRoot.title("Error!")
+        x = Message(msgRoot, text='Error: Please select a Student', width=200)
+        x.pack()
+        close = Button(msgRoot, text='Close',width=7,height=2)
+        close.pack(side=BOTTOM)
+        close.bind("<ButtonRelease-1>", destroy)
+        msgRoot.geometry('250x75')
+        msgRoot.mainloop()
+        
+    else:
+        pass
+
+def selectArea(event):
+    if areaList.curselection() != ():
+        global selectedArea
+        selectedArea = AL[int(areaList.curselection()[0])]
+        for days in ['Mon','Tue','Wed','Thur','Fri','Sat','Sun']:
+            dailyList.insert(END, days + ': ' + str(ACS_clone.student2average[selectedStudent][selectedArea][days]))
+
+            
 #############################
 #      Daily List           #
 #############################
@@ -110,7 +135,7 @@ frame1 = Frame(root)
 frame1.pack(side=LEFT)
 studentLabel = Label(frame1, text="Student List")
 studentLabel.pack(side=TOP)
-studentList = Listbox(frame1)
+studentList = Listbox(frame1, selectmode = SINGLE)
 studentList.pack(side=LEFT,padx=5)
 studentList.bind('<ButtonRelease-1>', selectStudent)
 
@@ -122,9 +147,10 @@ frame2 = Frame(root)
 frame2.pack(side=LEFT)
 areaLabel = Label(frame2, text="Area List")
 areaLabel.pack(side=TOP)
-areaList= Listbox(frame2)
+areaList= Listbox(frame2, selectmode = SINGLE)
 areaList.pack(padx=5)
-areaList.bind('<ButtonRelease-1>', checkStudent)
+areaList.bind('<Button-1>', checkStudent)
+areaList.bind('<ButtonRelease-1>', selectArea)
 
 ###########################
 #       Frame3            #
@@ -133,7 +159,7 @@ frame3 = Frame(root)
 frame3.pack(side=LEFT)
 dailyLabel = Label(frame3, text='Daily Averages')
 dailyLabel.pack()
-dailyList = Listbox(frame3)
+dailyList = Listbox(frame3, selectmode = SINGLE)
 dailyList.pack(padx=5)
 dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
 
