@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 
 import ACS_clone
 
@@ -12,6 +13,117 @@ def donothing():
 def roster():
     pass
 
+def fileNew():
+    studentList.delete(0,END)
+    areaList.delete(0,END)
+    dailyList.delete(0,END)
+    ACS_clone.student2average = {}
+    
+def fileSave():
+    ACS_clone.save()
+
+def fileLoad():
+    ACS_clone.load()
+
+
+
+def viewRoster():
+    def close():
+        roster.destroy()
+    roster = Tk()
+    for names in SL:
+        Label(roster, text=names, justify=CENTER).pack()
+    close = Button(roster,text = 'Close', command=close)
+    close.pack()
+    roster.mainloop()
+
+def addStudent():
+    def add():
+        student = entry.get()
+        if student != '':
+            ACS_clone.student2average[student] = {"Program":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"},
+                "Athletics":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"},
+                "Academics":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"},
+                "Psychotherapy":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"},
+                "Family Rep":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"},
+                "Educational Group":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"}}
+            addWindow.destroy()
+            studentList.insert(END, student)
+            SL.append(student)
+        else:
+            def errorClose():
+                error.destroy()
+                
+            error = Tk()
+            msg = Message(error, text='Error: Please enter a name', width=200)
+            msg.pack()
+            close = Button(error, text='Close',command=errorClose)
+            close.pack()
+            error.mainloop()
+        
+        
+    def close():
+        addWindow.destroy()
+        
+    addWindow = Tk()
+    msg = Message(addWindow, text='Student Name:', width = 200)
+    msg.pack()
+    entry = Entry(addWindow,)
+    entry.pack()
+    bottomFrame = Frame(addWindow)
+    bottomFrame.pack(side=BOTTOM)
+    add = Button(bottomFrame, text='Add', command=add)
+    add.pack(side=LEFT)
+    close = Button(bottomFrame, text='Close', command=close)
+    close.pack(side=RIGHT)
+    addWindow.mainloop()
+
+
+
+def deleteStudent():
+    def delete(event):
+        
+        student = SL[int(deleteList.curselection()[0])]
+        confirm = Tk()
+        confirm.title("Warning")
+        msg = Message(confirm, text='Are you sure you want to delete ' + student, width=200)
+        msg.pack()
+        buttonFrame = Frame(confirm)
+        buttonFrame.pack(side=BOTTOM)
+        def do():
+            del ACS_clone.student2average[student]
+            SL.remove(student)
+            confirm.destroy()
+            deleteWindow.destroy()
+            studentList.delete(0,END)
+            studentListINIT()
+        def dont():
+            confirm.destroy()
+        yes = Button(buttonFrame, text='Yes', command=do)
+        yes.pack(side=LEFT)
+        no = Button(buttonFrame, text='No', command=dont)
+        no.pack(side=RIGHT)
+        confirm.mainloop()
+        
+       
+    def close():
+        deleteWindow.destroy()
+        
+    deleteWindow = Tk()
+    deleteWindow.title('Delete Student')
+    frame1 = Frame(deleteWindow)
+    frame1.pack(side=LEFT)
+    studentLabel = Label(frame1, text="Student List")
+    studentLabel.pack(side=TOP)
+    deleteList = Listbox(frame1, selectmode = SINGLE)
+    deleteList.pack(side=LEFT,padx=5)
+    deleteList.bind('<ButtonRelease-1>', delete)
+    for students in SL:
+        deleteList.insert(END, students)
+    close=Button(deleteWindow, text='Cancel', command=close)
+    close.pack(side=BOTTOM)
+    deleteWindow.mainloop()
+    
 ###########################
 #   Student List          #
 ###########################
@@ -30,11 +142,18 @@ selectedStudent = None
 def selectStudent(event):
     global selectedStudent
     selectedStudent = SL[int(studentList.curselection()[0])]
+    if len(dailyList.get(0,END)) > 1:
+            global dailyList
+            dailyList.destroy()
+            dailyList = Listbox(frame3, selectmode = SINGLE)
+            dailyList.pack(padx=5)
+            dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
+        
     
 
 ############################
 #          AREA            #
-############################
+############################.
 def areaDestroy(event):
     areaList.children.clear()
 
@@ -55,35 +174,85 @@ def checkStudent(event):
     def destroy(event):
         msgRoot.destroy()
         
-    if selectedStudent == None:
+    if selectedStudent == None or selectedStudent not in SL:
         msgRoot = Tk()
         msgRoot.title("Error!")
         x = Message(msgRoot, text='Error: Please select a Student', width=200)
         x.pack()
-        close = Button(msgRoot, text='Close',width=7,height=2)
+        close = Button(msgRoot, text='Close')
         close.pack(side=BOTTOM)
         close.bind("<ButtonRelease-1>", destroy)
-        msgRoot.geometry('250x75')
+        
         msgRoot.mainloop()
         
     else:
         pass
-
+global week
+week = ['Mon','Tue','Wed','Thur','Fri','Sat','Sun']
 def selectArea(event):
     if areaList.curselection() != ():
         global selectedArea
         selectedArea = AL[int(areaList.curselection()[0])]
-        for days in ['Mon','Tue','Wed','Thur','Fri','Sat','Sun']:
+        if len(dailyList.get(0,END)) > 1:
+            global dailyList
+            dailyList.destroy()
+            dailyList = Listbox(frame3, selectmode = SINGLE)
+            dailyList.pack(padx=5)
+            dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
+        global week
+        for days in week:
             dailyList.insert(END, days + ': ' + str(ACS_clone.student2average[selectedStudent][selectedArea][days]))
 
             
 #############################
 #      Daily List           #
 #############################
+global day
+day = None
+
+global update
+update = None
+
 def dailyUPDATE(event):
-    pass
+    def save():
+        update = entry.get()
+        if update.lower() != 'none':
+            ACS_clone.student2average[selectedStudent][selectedArea][day] = float(update)
+        else:
+            ACS_clone.student2average[selectedStudent][selectedArea][day]= None
+            
+        updateRoot.destroy()
+        if len(dailyList.get(0,END)) > 1:
+            global dailyList
+            dailyList.destroy()
+            dailyList = Listbox(frame3, selectmode = SINGLE)
+            dailyList.pack(padx=5)
+            dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
+        global week
+        for days in week:
+            dailyList.insert(END, days + ': ' + str(ACS_clone.student2average[selectedStudent][selectedArea][days]))
 
 
+    def cancel():
+        updateRoot.destroy()
+        
+    global day
+    day = week[int(dailyList.curselection()[0])]
+    updateRoot = Tk()
+    updateRoot.title(selectedStudent + ' ' + selectedArea + ': ' + day) 
+    updateprompt = Message(updateRoot, text='Enter Average',width=200)
+    updateprompt.pack()
+    entry = Entry(updateRoot)
+    entry.pack()
+    entry.insert(0,str(ACS_clone.student2average[selectedStudent][selectedArea][day]))
+    bottomFrame = Frame(updateRoot)
+    bottomFrame.pack(side=BOTTOM)
+    save = Button(bottomFrame, text='Save', command = save)
+    save.pack(side=LEFT)
+    cancel = Button(bottomFrame, text='Cancel', command = cancel)
+    cancel.pack(side=RIGHT)
+    updateRoot.geometry('300x75')
+    updateRoot.mainloop()
 
 
 #############################
@@ -103,18 +272,18 @@ root.config(menu=menubar)
 
 
 fileMenu = Menu(menubar)
-fileMenu.add_command(label='New', command=donothing)
-fileMenu.add_command(label='Save', command=donothing)
-fileMenu.add_command(label='Load', command=donothing)
+fileMenu.add_command(label='New', command=fileNew)
+fileMenu.add_command(label='Save', command=fileSave)
+fileMenu.add_command(label='Load', command=fileLoad)
 fileMenu.add_command(label='Exit', command=exit)
 
 menubar.add_cascade(label='File', menu=fileMenu)
 
 studentMenu = Menu(menubar)
 
-studentMenu.add_command(label='View Roster', command=roster)
-studentMenu.add_command(label='Add Student', command=donothing)
-studentMenu.add_command(label='Delete Student', command=donothing)
+studentMenu.add_command(label='View Roster', command=viewRoster)
+studentMenu.add_command(label='Add Student', command=addStudent)
+studentMenu.add_command(label='Delete Student', command=deleteStudent)
 
 menubar.add_cascade(label='Students', menu=studentMenu)
 

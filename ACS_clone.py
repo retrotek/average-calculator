@@ -66,6 +66,7 @@ def student_list():
 
         counter+=1
     students.append(name.rstrip('\)'''
+        
         name = line
         students.append(name.rstrip('\n'))
     x.close()
@@ -268,7 +269,7 @@ def save():
     for name in student2average:
             file.write(name + '\n')
     file.close()
-    print(" \n Averages and Roster saved.")
+    
     
 def load():
     file = open('savedAverages.txt','r')
@@ -341,7 +342,6 @@ import datetime
 import json
 global student2average
 student2average = {}
-
 global_var_set()
 
 
