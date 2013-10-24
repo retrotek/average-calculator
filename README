@@ -29,7 +29,7 @@ The actual database of students and their corresponding averages is stored in th
 
 
 
-Commands:
+ACS-prototype Commands:
 
 Roster --
 Lists all of the students in the currently saved roster.
@@ -52,3 +52,12 @@ Loads previously saved data.
 
 Exit -- 
 Closes the program.
+
+
+Workflow:
+
+First, I wrote a non graphical test program that had all of the functionality that I wanted for the graphical program. It was a text based prompt that ran in the console or IDLE. Once I was satisfied with the test program, I began designing the GUI and had to rewrite and format the functions from the textbased test program to fit the new interface. I kept the old data structure and simple save/load methods.
+
+The test program is saved as ACS-prototype.py
+The editted test program that is imported into the GUI is saved as ACS_clone.py
+The final GUI/application is saved as Average-Calculator.py
