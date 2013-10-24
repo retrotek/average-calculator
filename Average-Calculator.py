@@ -16,6 +16,7 @@ def fileNew():
     areaList.delete(0,END)
     dailyList.delete(0,END)
     ACS_clone.student2average = {}
+    SL = []
     
 def fileSave():
     ACS_clone.save()
@@ -48,12 +49,16 @@ def addStudent():
                 "Educational Group":{"Mon":"None","Tue":"None","Wed":"None","Thur":"None","Fri":"None","Sat":"None","Sun":"None"}}
             addWindow.destroy()
             studentList.insert(END, student)
+            global SL
+            SL.clear()
             SL.append(student)
+            areaListINIT()
         else:
             def errorClose():
                 error.destroy()
                 
             error = Tk()
+            error.title("Error")
             msg = Message(error, text='Error: Please enter a name', width=200)
             msg.pack()
             close = Button(error, text='Close',command=errorClose)
@@ -76,6 +81,7 @@ def addStudent():
     add.pack(side=LEFT)
     close = Button(bottomFrame, text='Close', command=close)
     close.pack(side=RIGHT)
+    addWindow.geometry("200x75")
     addWindow.mainloop()
 
 
@@ -122,6 +128,7 @@ def deleteStudent():
         deleteList.insert(END, students)
     close=Button(deleteWindow, text='Cancel', command=close)
     close.pack(side=BOTTOM)
+    deleteWindow.geometry('200x200')
     deleteWindow.mainloop()
 
 def quickList():
@@ -143,7 +150,7 @@ def quickList():
         fam = x['Family Rep']
         areas = [singular_average(aca),singular_average(ath),singular_average(edu),
                  singular_average(fam),singular_average(pro),singular_average(psy)]
-        Label(quickList,text=student+ ':  ' + str(overall_avg(areas)) + '\n').pack()
+        Label(quickList,text=student+ ':  ' + str(overall_avg(areas)) + '\n', width=25).pack()
     close = Button(quickList, text='Close', command=close)
     close.pack()
     quickList.mainloop()
