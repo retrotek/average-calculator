@@ -10,8 +10,6 @@ import ACS_clone
 def donothing():
     pass
 
-def roster():
-    pass
 
 def fileNew():
     studentList.delete(0,END)
@@ -31,6 +29,7 @@ def viewRoster():
     def close():
         roster.destroy()
     roster = Tk()
+    roster.title("Roster")
     for names in SL:
         Label(roster, text=names, justify=CENTER).pack()
     close = Button(roster,text = 'Close', command=close)
@@ -66,6 +65,7 @@ def addStudent():
         addWindow.destroy()
         
     addWindow = Tk()
+    addWindow.title("Add Student")
     msg = Message(addWindow, text='Student Name:', width = 200)
     msg.pack()
     entry = Entry(addWindow,)
@@ -123,6 +123,33 @@ def deleteStudent():
     close=Button(deleteWindow, text='Cancel', command=close)
     close.pack(side=BOTTOM)
     deleteWindow.mainloop()
+
+def quickList():
+    def singular_average(area):
+        ACS_clone.singular_average(area)
+    def overall_avg(area):
+        ACS_clone.overall_avg(area)
+    def close():
+        quickList.destroy()
+    quickList = Tk()
+    quickList.title("Quick List")
+    for student in ACS_clone.student2average:
+        x = ACS_clone.student2average[student]
+        aca = x['Academics']
+        ath = x['Athletics']
+        edu = x['Educational Group']
+        pro = x['Program']
+        psy = x['Psychotherapy']
+        fam = x['Family Rep']
+        areas = [singular_average(aca),singular_average(ath),singular_average(edu),
+                 singular_average(fam),singular_average(pro),singular_average(psy)]
+        Label(quickList,text=student+ ':  ' + str(overall_avg(areas)) + '\n').pack()
+    close = Button(quickList, text='Close', command=close)
+    close.pack()
+    quickList.mainloop()
+
+
+
     
 ###########################
 #   Student List          #
@@ -140,14 +167,17 @@ global selectedStudent
 selectedStudent = None
 
 def selectStudent(event):
-    global selectedStudent
-    selectedStudent = SL[int(studentList.curselection()[0])]
-    if len(dailyList.get(0,END)) > 1:
-            global dailyList
-            dailyList.destroy()
-            dailyList = Listbox(frame3, selectmode = SINGLE)
-            dailyList.pack(padx=5)
-            dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
+    if studentList.get(0,END) == ():
+        pass
+    else:
+        global selectedStudent
+        selectedStudent = SL[int(studentList.curselection()[0])]
+        if len(dailyList.get(0,END)) > 1:
+                global dailyList
+                dailyList.destroy()
+                dailyList = Listbox(frame3, selectmode = SINGLE)
+                dailyList.pack(padx=5)
+                dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
         
     
 
@@ -235,24 +265,27 @@ def dailyUPDATE(event):
 
     def cancel():
         updateRoot.destroy()
-        
-    global day
-    day = week[int(dailyList.curselection()[0])]
-    updateRoot = Tk()
-    updateRoot.title(selectedStudent + ' ' + selectedArea + ': ' + day) 
-    updateprompt = Message(updateRoot, text='Enter Average',width=200)
-    updateprompt.pack()
-    entry = Entry(updateRoot)
-    entry.pack()
-    entry.insert(0,str(ACS_clone.student2average[selectedStudent][selectedArea][day]))
-    bottomFrame = Frame(updateRoot)
-    bottomFrame.pack(side=BOTTOM)
-    save = Button(bottomFrame, text='Save', command = save)
-    save.pack(side=LEFT)
-    cancel = Button(bottomFrame, text='Cancel', command = cancel)
-    cancel.pack(side=RIGHT)
-    updateRoot.geometry('300x75')
-    updateRoot.mainloop()
+
+    if dailyList.get(0,END) == ():
+        pass
+    else:
+        global day
+        day = week[int(dailyList.curselection()[0])]
+        updateRoot = Tk()
+        updateRoot.title(selectedStudent + ' ' + selectedArea + ': ' + day) 
+        updateprompt = Message(updateRoot, text='Enter Average',width=200)
+        updateprompt.pack()
+        entry = Entry(updateRoot)
+        entry.pack()
+        entry.insert(0,str(ACS_clone.student2average[selectedStudent][selectedArea][day]))
+        bottomFrame = Frame(updateRoot)
+        bottomFrame.pack(side=BOTTOM)
+        save = Button(bottomFrame, text='Save', command = save)
+        save.pack(side=LEFT)
+        cancel = Button(bottomFrame, text='Cancel', command = cancel)
+        cancel.pack(side=RIGHT)
+        updateRoot.geometry('300x75')
+        updateRoot.mainloop()
 
 
 #############################
@@ -289,9 +322,9 @@ menubar.add_cascade(label='Students', menu=studentMenu)
 
 averageMenu = Menu(menubar)
 
-averageMenu.add_command(label='Quick List', command=donothing)
-averageMenu.add_command(label='Inspect', command=donothing)
-averageMenu.add_command(label='Update', command=donothing)
+averageMenu.add_command(label='Quick List', command=quickList)
+##averageMenu.add_command(label='Inspect', command=donothing)
+##averageMenu.add_command(label='Update', command=donothing)
 
 menubar.add_cascade(label='Averages', menu=averageMenu)
 
