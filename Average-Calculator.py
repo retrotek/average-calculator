@@ -50,8 +50,10 @@ def addStudent():
             addWindow.destroy()
             studentList.insert(END, student)
             global SL
-            SL.clear()
+            
             SL.append(student)
+            
+            areaList.delete(0,END)
             areaListINIT()
         else:
             def errorClose():
