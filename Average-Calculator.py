@@ -256,7 +256,7 @@ def dailyUPDATE(event):
         if update.lower() != 'none':
             ACS_clone.student2average[selectedStudent][selectedArea][day] = float(update)
         else:
-            ACS_clone.student2average[selectedStudent][selectedArea][day]= None
+            ACS_clone.student2average[selectedStudent][selectedArea][day]= 'None'
             
         updateRoot.destroy()
         if len(dailyList.get(0,END)) > 1:
