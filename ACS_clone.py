@@ -43,7 +43,8 @@ def singular_average(dict):
             daycount += 1
     if daycount !=0 :    
         return total/daycount
-
+    else:
+        return "None"
 
 
 
@@ -282,13 +283,14 @@ def overall_avg(areas):
     x = len(areas)
     count = 0
     for num in range(0,x):
-        if areas[num] != None:
-            total+=areas[num]
-            count+=1
+        if areas[num] != 'None':
+            total += areas[num]
+            count += 1
     if count != 0:
         return total/count
     else:
         return "N/A"
+    
 def fam_averages():
     for student in student2average:
         x = student2average[student]

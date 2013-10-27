@@ -15,7 +15,9 @@ def fileNew():
     studentList.delete(0,END)
     areaList.delete(0,END)
     dailyList.delete(0,END)
+    
     ACS_clone.student2average = {}
+    global SL
     SL = []
     
 def fileSave():
@@ -23,7 +25,8 @@ def fileSave():
 
 def fileLoad():
     ACS_clone.load()
-
+    studentList.delete(0,END)
+    studentListINIT()
 
 
 def viewRoster():
@@ -134,14 +137,50 @@ def deleteStudent():
     deleteWindow.mainloop()
 
 def quickList():
-    def singular_average(area):
-        ACS_clone.singular_average(area)
-    def overall_avg(area):
-        ACS_clone.overall_avg(area)
+    def singular_average(dict):
+        total = 0
+        daycount = 0
+    
+        if dict['Mon'] != "None":
+            total += float(dict['Mon'])
+            daycount += 1
+        if dict['Tue'] != "None":
+            total += float(dict['Tue'])
+            daycount += 1
+        if dict['Wed'] != "None":
+            total += float(dict['Wed'])
+            daycount += 1
+        if dict['Thur'] != "None":
+            total += float(dict['Thur'])
+            daycount += 1
+        if dict['Fri'] != "None":
+            total += float(dict['Fri'])
+            daycount += 1
+        if dict['Sat'] != "None":
+            total += float(dict['Sat'])
+            daycount += 1
+        if dict['Sun'] != "None":
+            total += float(dict['Sun'])
+            daycount += 1
+        if daycount !=0 :    
+            return total/daycount
+    def overall_avg(areas):
+        total = 0
+        counter = 0
+        for num in range(0, len(areas)):
+            if areas[num] == None:
+                pass
+            else:
+                total += areas[num]
+                counter +=1
+                return total/counter
+            
     def close():
         quickList.destroy()
+        
     quickList = Tk()
     quickList.title("Quick List")
+    
     for student in ACS_clone.student2average:
         x = ACS_clone.student2average[student]
         aca = x['Academics']
@@ -153,6 +192,7 @@ def quickList():
         areas = [singular_average(aca),singular_average(ath),singular_average(edu),
                  singular_average(fam),singular_average(pro),singular_average(psy)]
         Label(quickList,text=student+ ':  ' + str(overall_avg(areas)) + '\n', width=25).pack()
+        
     close = Button(quickList, text='Close', command=close)
     close.pack()
     quickList.mainloop()
@@ -263,10 +303,7 @@ def dailyUPDATE(event):
         updateRoot.destroy()
         if len(dailyList.get(0,END)) > 1:
             global dailyList
-            dailyList.destroy()
-            dailyList = Listbox(frame3, selectmode = SINGLE)
-            dailyList.pack(padx=5)
-            dailyList.bind('<ButtonRelease-1>', dailyUPDATE)
+            dailyList.delete(0,END)
         global week
         for days in week:
             dailyList.insert(END, days + ': ' + str(ACS_clone.student2average[selectedStudent][selectedArea][days]))
